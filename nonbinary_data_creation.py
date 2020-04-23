@@ -24,7 +24,7 @@ def build_vocab_map(df):
             else:
                 words[item] += 1
 
-    # This next part of the code deletes any words from the dictionary that are seen less in less than 30 news articles
+    # This next part of the code deletes any words from the dictionary that are seen less in less than 100 news articles
     delete = [key for key, val in words.items() if val < 100]
     for key in delete:
         del words[key]
