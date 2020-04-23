@@ -46,7 +46,7 @@ def split_data(x, y):
     return xTrain, yTrain, xTest, yTest
 
 
-def construct_binary(df, dictionary):
+def construct_count(df, dictionary):
     vectorizer = CountVectorizer(vocabulary=dictionary.keys(), binary=False)
     x = vectorizer.fit_transform(df.values[:, 0])
     df2 = pd.DataFrame(x.toarray())
@@ -86,8 +86,8 @@ def main():
 
     dictionary = build_vocab_map(xTrain)
 
-    count_dataset_train = construct_binary(xTrain, dictionary)
-    count_dataset_test = construct_binary(xTest, dictionary)
+    count_dataset_train = construct_count(xTrain, dictionary)
+    count_dataset_test = construct_count(xTest, dictionary)
     count_dataset_train = normalize_dataframe(count_dataset_train)
     count_dataset_test = normalize_dataframe(count_dataset_test)
 
