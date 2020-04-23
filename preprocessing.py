@@ -3,15 +3,17 @@ import numpy as np
 import pandas as pd
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
+
+
 def preprocess(real, fake):
-	# unite fake and real news
-	df = pd.concat([real, fake], axis=0)
-	# shuffle the rows of the dataframe
-	df = df.sample(frac=1).reset_index(drop=True)
-	# drop unessesary data
-	df = df.drop(columns=['title', 'subject', 'date'])
-	df = df.fillna("")
-	return df
+    # unite fake and real news
+    df = pd.concat([real, fake], axis=0)
+    # shuffle the rows of the dataframe
+    df = df.sample(frac=1).reset_index(drop=True)
+    # drop unessesary data
+    df = df.drop(columns=['title', 'subject', 'date'])
+    df = df.fillna("")
+    return df
 
 
 def text_stemming(df):
