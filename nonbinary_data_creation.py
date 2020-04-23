@@ -68,14 +68,14 @@ def main():
     parser.add_argument("--news",
                         default="news_Stemmed.csv",
                         help="filename of the input data")
-    parser.add_argument("--BINARY_xTrain",
-                        default='BINARY_xTrain.csv')
-    parser.add_argument("--BINARY_yTrain",
-                        default='BINARY_yTrain.csv')
-    parser.add_argument("--BINARY_xTest",
-                        default='BINARY_xTest.csv')
-    parser.add_argument("--BINARY_yTest",
-                        default='BINARY_yTest.csv')
+    parser.add_argument("--COUNT_xTrain",
+                        default='COUNT_xTrain.csv')
+    parser.add_argument("--COUNT_yTrain",
+                        default='COUNT_yTrain.csv')
+    parser.add_argument("--COUNT_xTest",
+                        default='COUNT_xTest.csv')
+    parser.add_argument("--COUNT_yTest",
+                        default='COUNT_yTest.csv')
 
     args = parser.parse_args()
 
@@ -86,15 +86,15 @@ def main():
 
     dictionary = build_vocab_map(xTrain)
 
-    binary_dataset_train = construct_binary(xTrain, dictionary)
-    binary_dataset_test = construct_binary(xTest, dictionary)
-    binary_dataset_train = normalize_dataframe(binary_dataset_train)
-    binary_dataset_test = normalize_dataframe(binary_dataset_test)
+    count_dataset_train = construct_binary(xTrain, dictionary)
+    count_dataset_test = construct_binary(xTest, dictionary)
+    count_dataset_train = normalize_dataframe(count_dataset_train)
+    count_dataset_test = normalize_dataframe(count_dataset_test)
 
-    binary_dataset_train.to_csv(args.BINARY_xTrain, index=False)
-    binary_dataset_test.to_csv(args.BINARY_xTest, index=False)
-    yTrain.to_csv(args.BINARY_yTrain, index=False)
-    yTest.to_csv(args.BINARY_yTest, index=False)
+    count_dataset_train.to_csv(args.COUNT_xTrain, index=False)
+    count_dataset_test.to_csv(args.COUNT_xTest, index=False)
+    yTrain.to_csv(args.COUNT_yTrain, index=False)
+    yTest.to_csv(args.COUNT_yTest, index=False)
 
 
 if __name__ == '__main__':
