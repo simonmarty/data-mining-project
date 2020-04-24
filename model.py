@@ -1,21 +1,13 @@
 import argparse
-import numpy as np
 import pandas as pd
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 
 
-def Multinomial_NB(xTrain, yTrain, xTest, yTest):
-    clf = MultinomialNB()
-    clf.fit(xTrain, yTrain)
-    return clf.score(xTest, yTest)
-
-
-def logistic_regression(xTrain, yTrain, xTest, yTest):
-    clf = LogisticRegression(solver='lbfgs')
-    clf.fit(xTrain, yTrain)
-    return clf.score(xTest, yTest)
+def train(xTrain, yTrain, xTest, yTest, model):
+    model.fit(xTrain, yTrain)
+    return model.score(xTest, yTest)
 
 
 def file_to_numpy(filename):
@@ -50,14 +42,17 @@ def main():
     tfidf_yTrain = file_to_numpy(args.tfidf_yTrain)
     tfidf_yTrain = tfidf_yTrain.ravel()
     tfidf_xTest = file_to_numpy(args.tfidf_xTest)
-    tfidf_yTest = file_to_numpy(args.tfidf_yTest)
-    tfidf_yTest = tfidf_yTest.ravel()
+    tfidf_yTest = file_to_numpy(args.tfidf_yTest).ravel()
 
-    tfidf_accuracy_NB = Multinomial_NB(tfidf_xTrain, tfidf_yTrain, tfidf_xTest, tfidf_yTest)
-    print("Accuracy for tfidf dataset in Naive Bayes: ", tfidf_accuracy_NB)
+    tfidf_accuracy_nb = train(tfidf_xTrain, tfidf_yTrain, tfidf_xTest, tfidf_yTest, model=MultinomialNB())
+    print("Accuracy for tfidf dataset in Multinomial Naive Bayes: ", tfidf_accuracy_nb)
 
-    tfidf_accuracy_LG = logistic_regression(tfidf_xTrain, tfidf_yTrain, tfidf_xTest, tfidf_yTest)
-    print("Accuracy for tfidf dataset in Logistic Regression: ", tfidf_accuracy_LG)
+    tfidf_accuracy_lg = train(tfidf_xTrain, tfidf_yTrain, tfidf_xTest, tfidf_yTest,
+                              model=LogisticRegression(solver='lbfgs'))
+    print("Accuracy for tfidf dataset in Logistic Regression: ", tfidf_accuracy_lg)
+
+    tfidf_accuracy_bi = train(tfidf_xTrain, tfidf_yTrain, tfidf_xTest, tfidf_yTest, model=BernoulliNB())
+    print("Accuracy for tfidf dataset in Bernoulli Naive Bayes: ", tfidf_accuracy_bi)
 
 
 if __name__ == '__main__':
