@@ -1,3 +1,17 @@
+COUNT*.csv
+.idea/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+BINARY*.csv
+.idea/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
 TFIDF*.csv
 .idea/
 # Byte-compiled / optimized / DLL files
