@@ -10,7 +10,7 @@ def preprocess(real, fake):
     df = pd.concat([real, fake], axis=0)
     # shuffle the rows of the dataframe
     df = df.sample(frac=1).reset_index(drop=True)
-    # drop unessesary data
+    # drop unnecessary data
     df = df.drop(columns=['title', 'subject', 'date'])
     df = df.fillna("")
     return df
