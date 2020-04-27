@@ -1,3 +1,5 @@
+# Haris Ahmad, Luis Gomez Flores, Jack Frumkes, Simon Marty
+
 import argparse
 import numpy as np
 import pandas as pd

@@ -1,3 +1,5 @@
+# Haris Ahmad, Luis Gomez Flores, Jack Frumkes, Simon Marty
+
 import argparse
 import pandas as pd
 from sklearn.naive_bayes import BernoulliNB
