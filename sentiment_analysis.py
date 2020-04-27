@@ -9,7 +9,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import nltk
 
-
+#This function creates the attributes "polarity" and "subjectivity" for a given dataframe.
 def sentiment_analysis(df):
     x = df.to_numpy()
     list_of_subjectivity = []
@@ -22,7 +22,7 @@ def sentiment_analysis(df):
     df3 = pd.DataFrame(data=list_of_polarity)
     return df2, df3
 
-
+#plots a polarity histogram given a dataframe, and a title
 def polarity_histogram(df, title):
     plt.hist(df)
     plt.xlabel("Polarity")
@@ -30,7 +30,7 @@ def polarity_histogram(df, title):
     plt.title(title)
     plt.show()
 
-
+#plots a subjectivity histogram given a dataframe and a title
 def subjectivity_histogram(df, title):
     plt.hist(df)
     plt.xlabel("Subjectivity")
@@ -38,7 +38,7 @@ def subjectivity_histogram(df, title):
     plt.title(title)
     plt.show()
 
-
+#creates a wordcloud for a given list of words
 def word_cloud_maker(words):
     wordcloud = WordCloud(width=3000, height=2000, background_color='black',
                           stopwords=set(nltk.corpus.stopwords.words("english"))).generate(str(words))
@@ -60,12 +60,15 @@ def main():
     real = real.fillna("")
     fake = pd.read_csv(args.fake_news)
     fake = fake.fillna("")
+
+    #Calculate the polarity and subjectivity of fake and real news
     real['subjectivity for real text'], real['polarity for real text'] = sentiment_analysis(real['text'])
     fake['subjectivity for fake text'], fake['polarity for fake text'] = sentiment_analysis(fake['text'])
-
+    #Calculate the polarity and subjectivity of Titles of fake and real news
     real['subjectivity for real titles'], real['polarity for real titles'] = sentiment_analysis(real['title'])
     fake['subjectivity for fake titles'], fake['polarity for fake titles'] = sentiment_analysis(fake['title'])
 
+    #plots the histogram of real and fake news statistics
     polarity_histogram(real['polarity for real text'], "Polarity Distribution of Real News")
     polarity_histogram(real['polarity for real titles'], "Polarity Distribution of Real News Titles")
     polarity_histogram(fake['polarity for fake titles'], "Polarity Distribution of Fake News Titles")
@@ -75,6 +78,8 @@ def main():
     subjectivity_histogram(real['subjectivity for real titles'], "Subjectivity Distribution of Real News Titles")
     subjectivity_histogram(fake['subjectivity for fake titles'], "Subjectivity Distribution of Fake News Titles")
     subjectivity_histogram(fake['subjectivity for fake text'], "Subjectivity Distribution of Fake News")
+    
+    #create a new dataframe for polarity and subjectivity to ease with creation of box plots"
     polarity = pd.concat(
         [real['polarity for real text'], real['polarity for real titles'], fake['polarity for fake text'],
          fake['polarity for fake titles']], axis=1)
@@ -103,6 +108,7 @@ def main():
     real_titles = real.title.values
     fake_titles = fake.title.values
 
+    #plots word cloud for fake and real news
     word_cloud_maker(fake_words)
     word_cloud_maker(real_words)
     word_cloud_maker(fake_titles)

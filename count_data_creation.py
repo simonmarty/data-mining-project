@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from nltk.tokenize import word_tokenize
 
-
+#this function uses the train data to create a dictionary, which contains words that are found in 100 or more news articles.
 def build_vocab_map(df):
     words = {}
 
@@ -31,7 +31,7 @@ def build_vocab_map(df):
 
     return words
 
-
+#splits the news data into train and test in order to be pushed into a training model
 def split_data(x, y):
     new_x = x.to_numpy()
     new_y = y.to_numpy()
@@ -45,7 +45,7 @@ def split_data(x, y):
 
     return xTrain, yTrain, xTest, yTest
 
-
+#transform Text attribute into counter attributes. Each word in the dictiony is transformed into an attribute
 def construct_count(df, dictionary):
     vectorizer = CountVectorizer(vocabulary=dictionary.keys(), binary=False)
     x = vectorizer.fit_transform(df.values[:, 0])
@@ -53,7 +53,7 @@ def construct_count(df, dictionary):
 
     return df2
 
-
+#normalzed the data using min-max scaler
 def normalize_dataframe(df):
     x = df.to_numpy()
 

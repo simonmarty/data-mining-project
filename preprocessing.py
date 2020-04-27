@@ -21,10 +21,10 @@ def text_stemming(df):
     x = df.to_numpy()
     y = []
     for item in x:
-        x2 = word_tokenize(item.lower())
+        x2 = word_tokenize(item.lower()) #splits the words into a list, and lowercases them
         s = ""
         for item2 in x2:
-            s += ps.stem(item2)
+            s += ps.stem(item2) #switch item2 for the stem of it
             s += " "
         y.append(s)
     print(x)
